@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive London Food Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Simple spinner for loading state */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 4px solid #3498db;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Header Section -->
+    <header class="bg-white shadow-md sticky top-0 z-10">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight">London Food Guide</h1>
+                <p class="mt-2 text-lg text-gray-600">Your personal, curated list of the best eats in the city.</p>
+            </div>
+            <!-- Add Restaurant Section -->
+            <div class="mt-6 max-w-2xl mx-auto">
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <input type="text" id="restaurant-input" placeholder="Enter a restaurant name..." class="flex-grow w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <button id="add-restaurant-btn" class="bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-all duration-200 flex items-center justify-center">
+                        <span id="btn-text">Add Spot</span>
+                        <div id="loader" class="loader hidden"></div>
+                    </button>
+                </div>
+                 <p id="error-message" class="text-red-500 text-sm mt-2 text-center"></p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+        <!-- Container where cards will be injected -->
+        <div id="restaurant-container" class="space-y-8"></div>
+    </main>
+
+    <footer class="text-center py-10 mt-8 border-t border-gray-200">
+        <p class="text-gray-500">Created with care for a delicious trip to London.</p>
+    </footer>
+
+    <script>
+        // --- DATA & INITIALIZATION ---
+        const initialRestaurants = [
+            { name: "Jacuzzi", cuisine: "Italian", cost: "£££ (£60 - £100)", rating: "4.8", whyGo: "A stunning, over-the-top restaurant with an incredible Italian villa-style decor. The vibe is fun and perfect for a special night out.", nonVeg: ["Lobster and Seafood Risotto", "Gran Cotoletta alla Milanese"], veg: ["Truffle Burrata", "Chocolate Mousse"], maps: "https://www.google.com/maps/place/Jacuzzi/@51.510355,-0.1415737,17z/data=!3m1!4b1!4m6!3m5!1s0x4876053351296a3f:0x2c6443e12336870!8m2!3d51.510355!4d-0.139!16s%2Fg%2F11s45l_115?entry=ttu", insta: "https://www.instagram.com/bigmammagroup/" },
+            { name: "MiMi Mei Fair", cuisine: "Chinese", cost: "££££ (> £100)", rating: "4.9", whyGo: "A beautiful, upscale restaurant with a 1920s Shanghai vibe. Perfect for a fancy dinner or date night.", nonVeg: ["Apple-wood Peking Duck", "Wasabi Prawns", "Xiao Long Jewels"], veg: ["Steamed XO Okra", "Salted Egg and Corn-Fried Tofu"], maps: "https://www.google.com/maps/place/MiMi+Mei+Fair/@51.5049237,-0.1517173,17z/data=!3m1!4b1!4m6!3m5!1s0x487605273d641199:0x488b649323265581!8m2!3d51.5049237!4d-0.1491424!16s%2Fg%2F11p04w_12v?entry=ttu", insta: "https://www.instagram.com/mimimeifair/" },
+            { name: "Hoppers", cuisine: "Sri Lankan", cost: "££ (£30 - £50)", rating: "4.7", whyGo: "Authentic Sri Lankan and South Indian street food in a buzzy, fun setting. A MICHELIN Bib Gourmand winner, so it's great value for money.", nonVeg: ["Crab Kari", "Black Pork Kari", "Bone Marrow Varuval"], veg: ["Egg Hopper (namesake dish!)", "Dosa", "Paneer Kothu Roti"], maps: "https://www.google.com/maps/place/Hoppers/@51.5143387,-0.1337422,17z/data=!3m1!4b1!4m6!3m5!1s0x487604d393627599:0x47346d0a7a37922c!8m2!3d51.5143387!4d-0.1311673!16s%2Fg%2F11b6btyv_q?entry=ttu", insta: "https://www.instagram.com/hopperslondon/" },
+            { name: "Eataly", cuisine: "Italian Grocery Store", cost: "££ (£25 - £45)", rating: "4.5", whyGo: "A huge Italian food hall with restaurants, bars, and a market. A great place to explore, try different snacks, and enjoy some fantastic pizza.", nonVeg: ["Tagliatelle alla Bolognese", "Pizza Salsiccia e Friarielli"], veg: ["Pizza Margherita", "Spaghetto Eataly", "Arancini"], maps: "https://www.google.com/maps/place/Eataly+London/@51.5192313,-0.0837694,17z/data=!3m2!4b1!5s0x48761cb241f31c23:0x33a5559f635f9397!4m6!3m5!1s0x48761cb241c34915:0x452223f034e3d333!8m2!3d51.5192313!4d-0.0811945!16s%2Fg%2F11n_v2y2_9?entry=ttu", insta: "https://www.instagram.com/eatalylondon/" },
+            { name: "Dishoom", cuisine: "Indian", cost: "££ (£30 - £50)", rating: "4.6", whyGo: "A London favorite, styled after the old Irani cafés of Bombay. The atmosphere is always buzzing, and the food is consistently delicious, especially the breakfast.", nonVeg: ["Bacon Naan Roll (breakfast!)", "Chicken Ruby", "Lamb Samosas"], veg: ["Black Daal (a must-try!)", "Okra Fries", "Vegan Sausage Naan Roll"], maps: "https://www.google.com/maps/place/Dishoom+Covent+Garden/@51.5124113,-0.1257954,17z/data=!3m1!4b1!4m6!3m5!1s0x487604cb89360e81:0x195134cc53063544!8m2!3d51.5124113!4d-0.1232205!16s%2Fg%2F1td_v17w?entry=ttu", insta: "https://www.instagram.com/dishoom/" },
+            { name: "Lina Stores", cuisine: "Italian", cost: "££ (£35 - £55)", rating: "4.7", whyGo: "An iconic London deli and restaurant, famous for its fresh, handmade pasta. A true taste of Italy in the heart of London.", nonVeg: ["Spaghetti with Crab, Lemon, and Chilli", "Veal Ravioli"], veg: ["Pici with Datterino Tomatoes and Basil", "Agnolotti Verdi with Ricotta"], maps: "https://www.google.com/maps/place/Lina+Stores+Soho+-+Italian+Restaurant/@51.513725,-0.1332527,17z/data=!3m1!4b1!4m6!3m5!1s0x487604d24a871037:0x261917498f395690!8m2!3d51.513725!4d-0.1306778!16s%2Fg%2F11c6wz_z91?entry=ttu", insta: "https://www.instagram.com/linastores/" },
+            { name: "Bubala", cuisine: "Vegan Lebanese", cost: "££ (£35 - £50)", rating: "4.8", whyGo: "A trendy, MICHELIN Bib Gourmand-winning vegetarian restaurant with incredible Middle Eastern small plates. So good, it will convert meat-eaters!", nonVeg: [], veg: ["Halloumi with Black Seed Honey", "Fried Aubergine with Zhoug", "Confit Potato Latkes", "Laffa Bread"], maps: "https://www.google.com/maps/place/Bubala+Soho/@51.5147814,-0.1339679,17z/data=!3m1!4b1!4m6!3m5!1s0x487604d34515a8c9:0x39387928233519f!8m2!3d51.5147814!4d-0.131393!16s%2Fg%2F11s_d_p52z?entry=ttu", insta: "https://www.instagram.com/bubala_london/" },
+            { name: "Som Saa", cuisine: "Thai", cost: "£££ (£50 - £70)", rating: "4.6", whyGo: "Serves authentic, regional Thai food in a cool, converted warehouse. They have a fantastic dedicated vegan menu.", nonVeg: ["Whole Fried Sea Bass", "Braised Beef Curry (Gaeng Hung Lay)"], veg: ["Vegan Tasting Menu", "Stir-fried Morning Glory", "Mango Sticky Rice"], maps: "https://www.google.com/maps/place/som+saa/@51.5173364,-0.0664332,17z/data=!3m1!4b1!4m6!3m5!1s0x48761cb704a58929:0xf133a6937e06184a!8m2!3d51.5173364!4d-0.0638583!16s%2Fg%2F11c21m0z5k?entry=ttu", insta: "https://www.instagram.com/somsaalondon/" },
+            { name: "Honey & Co", cuisine: "Middle Eastern", cost: "£££ (£50 - £80)", rating: "4.7", whyGo: "A beautiful restaurant with vibrant, colorful Middle Eastern dishes perfect for sharing. A MICHELIN-recommended spot.", nonVeg: ["Slow-cooked Lamb with Saffron Rice", "Sea Bream Tagine"], veg: ["Labneh with Roast Butternut Squash", "Feta and Honey Cheesecake"], maps: "https://www.google.com/maps/place/Honey+%26+Co.+Bloomsbury/@51.520268,-0.1293247,17z/data=!3m1!4b1!4m6!3m5!1s0x48761b3464190f7d:0xcf298d24268e28f!8m2!3d51.520268!4d-0.1267498!16s%2Fg%2F11sm_h029p?entry=ttu", insta: "https://www.instagram.com/honeyandco/" },
+            { name: "Alley Cats Pizza", cuisine: "Pizza", cost: "£ (£20 - £30)", rating: "4.5", whyGo: "A slice of New York in London. They serve huge 14-inch crispy pizzas in a cool, atmospheric spot.", nonVeg: ["Pepperoni Pizza", "Meatballs starter"], veg: ["Vodka Pizza (a must-try!)", "Wild Mushroom Pizza", "Crushed Hot Potatoes"], maps: "https://www.google.com/maps/place/Alley+Cats+Pizza/@51.5198089,-0.1501863,17z/data=!3m1!4b1!4m6!3m5!1s0x48761acef713636b:0x39396f1687351052!8m2!3d51.5198089!4d-0.1476114!16s%2Fg%2F11k4t_q_y4?entry=ttu", insta: "https://www.instagram.com/alleycatspizzalondon/" },
+            { name: "Afternoon Tea at Petersham Nurseries", cuisine: "Afternoon Tea", cost: "£££ (£55+)", rating: "4.9", whyGo: "A unique and beautiful afternoon tea experience in a stunning greenhouse. The restaurant has a MICHELIN Green Star for sustainability.", nonVeg: ["Traditional afternoon tea with smoked salmon and ham"], veg: ["Vegan afternoon tea with creative plant-based options"], maps: "https://www.google.com/maps/place/Garden+Afternoon+Tea,+Petersham+Nurseries+Richmond/@51.4468239,-0.309328,17z/data=!3m1!4b1!4m6!3m5!1s0x48760c1a8a25567b:0x718a71677329d29!8m2!3d51.4468239!4d-0.3067531!16s%2Fg%2F11h19b01_l?entry=ttu", insta: "https://www.instagram.com/petershamnurseries/" },
+            { name: "The Dusty Knuckle Bakery", cuisine: "Bakery & Sandwiches", cost: "£ (£10 - £20)", rating: "4.8", whyGo: "An artisan bakery with a social mission, known for its incredible sourdough bread and creative sandwiches.", nonVeg: ["Salt Beef Sandwich", "Porchetta Sandwich"], veg: ["Potato Sourdough bread", "Egg and Chilli Cheese Focaccia"], maps: "https://www.google.com/maps/place/The+Dusty+Knuckle+Bakery/@51.543161,-0.076823,17z/data=!3m1!4b1!4m6!3m5!1s0x48761c9e65805555:0x51514b7914856634!8m2!3d51.543161!4d-0.0742481!16s%2Fg%2F11c3y_p1_x?entry=ttu", insta: "https://www.instagram.com/thedustyknuckle/" },
+            { name: "Jolene Bakery", cuisine: "Bakery & Restaurant", cost: "£-££ (£15 - £35)", rating: "4.7", whyGo: "A beautiful, MICHELIN-recommended neighborhood bakery and restaurant that mills its own flour.", nonVeg: ["Tagliatelle with Pork Ragu", "Seasonal Fish dishes"], veg: ["Freshly baked bread and pastries", "Ricotta Ravioli", "Seasonal Tarts"], maps: "https://www.google.com/maps/place/Jolene+Bakery+%26+Restaurant/@51.5567957,-0.0911765,17z/data=!3m1!4b1!4m6!3m5!1s0x48761c65d8365317:0x2c1998539257d21b!8m2!3d51.5567957!4d-0.0886016!16s%2Fg%2F11f6213l0z?entry=ttu", insta: "https://www.instagram.com/jolene_bakery/" },
+            { name: "Spitalfields Market", cuisine: "Street Food Market", cost: "£-££ (£10 - £30)", rating: "4.6", whyGo: "A lively market with a fantastic selection of street food stalls, alongside independent shops and restaurants.", nonVeg: ["The Rib Man for incredible ribs", "Bleecker St. Burger"], veg: ["Bleecker St. Burger's Veggie Burger", "Wheelcake Island"], maps: "https://www.google.com/maps/place/Spitalfields+Market/@51.5195433,-0.0780905,17z/data=!3m1!4b1!4m6!3m5!1s0x48761cb4619416b5:0x55d493a7593655ed!8m2!3d51.5195433!4d-0.0755156!16zL20vMDVqM3Nf?entry=ttu", insta: "https://www.instagram.com/spitalfieldse1/" },
+            { name: "Borough Market", cuisine: "Food Market", cost: "£-££ (£10 - £30)", rating: "4.7", whyGo: "London's most famous food market. A paradise for food lovers with a huge variety of artisan foods and delicious street food.", nonVeg: ["Chorizo Roll from Brindisa", "Scallops from Shellseekers"], veg: ["Cheese toastie from Kappacasein Dairy", "Doughnuts from Bread Ahead"], maps: "https://www.google.com/maps/place/Borough+Market/@51.5055057,-0.093203,17z/data=!3m1!4b1!4m6!3m5!1s0x4876035783338633:0x2d1836253965a7ad!8m2!3d51.5055057!4d-0.0906281!16zL20vMDJ3bWJw?entry=ttu", insta: "https://www.instagram.com/boroughmarket/" },
+            { name: "Mercato Mayfair", cuisine: "Food Hall", cost: "£-££ (£15 - £35)", rating: "4.6", whyGo: "A stunning food market set inside a restored church. It has a great atmosphere with food stalls over four floors and a brewery in the crypt.", nonVeg: ["German Doner Kebab from Jim's", "Rico Coco for fried chicken"], veg: ["Fresh pasta from Pasta London", "Neapolitan pizza from Badiani"], maps: "https://www.google.com/maps/place/Mercato+Mayfair/@51.5123985,-0.1508762,17z/data=!3m1!4b1!4m6!3m5!1s0x4876052a78658e17:0x5d1c6999420743f!8m2!3d51.5123985!4d-0.1483013!16s%2Fg%2F11h_trw5c1?entry=ttu", insta: "https://www.instagram.com/mercatometropolitano/" }
+        ];
+        
+        let allRestaurants = [];
+
+        // --- UI RENDERING ---
+
+        // Function to generate a restaurant card HTML
+        function createCard(resto) {
+             let nonVegHtml = '';
+            if (resto.nonVeg && resto.nonVeg.length > 0) {
+                nonVegHtml = `
+                    <h4 class="font-semibold text-gray-700 mt-4">Must-Eat (Non-Veg):</h4>
+                    <ul class="list-disc list-inside mt-1 text-gray-600 space-y-1">
+                        ${resto.nonVeg.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                `;
+            }
+
+            let vegHtml = '';
+            if (resto.veg && resto.veg.length > 0) {
+                const vegTitle = (!resto.nonVeg || resto.nonVeg.length === 0) ? "Must-Eat (All Veg):" : "Must-Eat (Veg):";
+                vegHtml = `
+                    <h4 class="font-semibold text-gray-700 mt-4">${vegTitle}</h4>
+                    <ul class="list-disc list-inside mt-1 text-gray-600 space-y-1">
+                        ${resto.veg.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                `;
+            }
+
+            return `
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:shadow-2xl transition-shadow duration-300">
+                    <div class="p-6 flex flex-col">
+                        <div class="flex-grow">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-sm font-semibold text-indigo-600 uppercase tracking-wider">${resto.cuisine || 'N/A'}</p>
+                                    <h2 class="text-3xl font-bold text-gray-900">${resto.name}</h2>
+                                </div>
+                                <div class="bg-green-600 text-white text-lg font-bold rounded-lg px-3 py-1 flex items-center">
+                                    <span>${resto.rating || 'N/A'}</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                </div>
+                            </div>
+                            <p class="mt-1 text-md font-medium text-gray-500">${resto.cost || 'N/A'}</p>
+                            
+                            <div class="mt-4">
+                                <h3 class="text-lg font-semibold text-gray-800">Why go?</h3>
+                                <p class="mt-1 text-gray-600">${resto.whyGo || 'Details not available.'}</p>
+                            </div>
+
+                            <div class="mt-4 border-t pt-4">
+                                ${nonVegHtml}
+                                ${vegHtml}
+                            </div>
+                        </div>
+                        <div class="mt-6 flex-shrink-0 flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
+                            <a href="${resto.maps || '#'}" target="_blank" class="flex-1 text-center bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-all duration-200">Google Maps</a>
+                            <a href="${resto.insta || '#'}" target="_blank" class="flex-1 text-center bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold py-2 px-4 rounded-lg hover:opacity-90 transition-all duration-200">Instagram</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to render all cards to the DOM
+        function renderCards() {
+            const container = document.getElementById('restaurant-container');
+            container.innerHTML = ''; // Clear existing cards
+            allRestaurants.forEach(resto => {
+                container.innerHTML += createCard(resto);
+            });
+        }
+
+        // --- LOGIC & EVENT HANDLERS ---
+
+        // Function to fetch restaurant details from AI
+        async function fetchRestaurantDetails(name) {
+            const btnText = document.getElementById('btn-text');
+            const loader = document.getElementById('loader');
+            const errorMessage = document.getElementById('error-message');
+
+            btnText.classList.add('hidden');
+            loader.classList.remove('hidden');
+            errorMessage.textContent = '';
+
+            const prompt = `Generate details for the London restaurant '${name}'. Provide only the following information in a valid JSON object: name (string), cuisine (string), cost (string, e.g., '££££ (>£150)'), whyGo (string), nonVeg (array of strings), veg (array of strings), maps (string, a valid Google Maps URL), insta (string, a valid Instagram URL), and rating (string, e.g., '4.9'). If you cannot find a detail, return an empty string or array.`;
+            
+            const payload = {
+                contents: [{ role: "user", parts: [{ text: prompt }] }],
+                generationConfig: {
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: "OBJECT",
+                        properties: {
+                            "name": { "type": "STRING" },
+                            "cuisine": { "type": "STRING" },
+                            "cost": { "type": "STRING" },
+                            "rating": { "type": "STRING" },
+                            "whyGo": { "type": "STRING" },
+                            "nonVeg": { "type": "ARRAY", "items": { "type": "STRING" } },
+                            "veg": { "type": "ARRAY", "items": { "type": "STRING" } },
+                            "maps": { "type": "STRING" },
+                            "insta": { "type": "STRING" }
+                        }
+                    }
+                }
+            };
+
+            try {
+                const apiKey = ""; // API key will be injected by the environment
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+                
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API error! Status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                const candidate = result.candidates?.[0];
+                const content = candidate?.content?.parts?.[0]?.text;
+
+                if (content) {
+                    const newResto = JSON.parse(content);
+                    // Add to the top of the list
+                    allRestaurants.unshift(newResto);
+                    saveToLocalStorage();
+                    renderCards();
+                } else {
+                    throw new Error("Could not retrieve details. The response was empty.");
+                }
+
+            } catch (error) {
+                console.error("Error fetching restaurant details:", error);
+                errorMessage.textContent = "Sorry, I couldn't find that spot. Please try another name.";
+            } finally {
+                btnText.classList.remove('hidden');
+                loader.classList.add('hidden');
+            }
+        }
+
+        // Function to save the current list to localStorage
+        function saveToLocalStorage() {
+            // We only save the user-added restaurants
+            const userAdded = allRestaurants.slice(0, allRestaurants.length - initialRestaurants.length);
+            localStorage.setItem('userRestaurants', JSON.stringify(userAdded));
+        }
+
+        // Event listener for the add button
+        document.getElementById('add-restaurant-btn').addEventListener('click', () => {
+            const input = document.getElementById('restaurant-input');
+            const name = input.value.trim();
+            if (name) {
+                fetchRestaurantDetails(name);
+                input.value = ''; // Clear input after search
+            }
+        });
+        
+        // Allow pressing Enter to add restaurant
+        document.getElementById('restaurant-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                document.getElementById('add-restaurant-btn').click();
+            }
+        });
+
+        // --- ON PAGE LOAD ---
+        window.onload = () => {
+            const savedRestaurants = JSON.parse(localStorage.getItem('userRestaurants')) || [];
+            allRestaurants = [...savedRestaurants, ...initialRestaurants];
+            renderCards();
+        };
+
+    </script>
+</body>
+</html>
