@@ -130,19 +130,19 @@
 
     <script>
         const initialRestaurants = [
-            { id: 1, name: "Jacuzzi", cuisine: "Italian", cost: "£££ (£60 - £100)", rating: "4.8", whyGo: "Stunning, over-the-top restaurant with an incredible Italian villa-style decor. The vibe is fun and perfect for a special night out.", nonVeg: ["Lobster and Seafood Risotto", "Gran Cotoletta alla Milanese"], veg: ["Truffle Burrata", "Chocolate Mousse"], maps: "https://www.google.com/maps/place/Jacuzzi/@51.510355,-0.139,17z", insta: "https://www.instagram.com/bigmammagroup/", lat: 51.510355, lng: -0.1390, tags: ["Vibrant", "Date Night"], image: "https://media.cntraveller.com/photos/63d8d706596568337538a648/16:9/w_2560%2Cc_limit/Jacuzzi_20221207_D3_8_115-Edit-2.jpeg" },
-            { id: 2, name: "MiMi Mei Fair", cuisine: "Chinese", cost: "££££ (> £100)", rating: "4.9", whyGo: "A beautiful, upscale restaurant with a 1920s Shanghai vibe. Perfect for a fancy dinner or date night.", nonVeg: ["Apple-wood Peking Duck", "Wasabi Prawns"], veg: ["Steamed XO Okra", "Salted Egg Tofu"], maps: "https://www.google.com/maps/place/MiMi+Mei+Fair/@51.5049237,-0.1491,17z", insta: "https://www.instagram.com/mimimeifair/", lat: 51.5049237, lng: -0.1491, tags: ["Fine Dining", "Special Occasion"], image: "https://media.cntraveller.com/photos/614995159416543b5078696e/16:9/w_2560%2Cc_limit/mimi-mei-fair-london-sept21-pr-2.jpg" },
-            { id: 3, name: "Hoppers", cuisine: "Sri Lankan", cost: "££ (£30 - £50)", rating: "4.7", whyGo: "Authentic Sri Lankan and South Indian street food in a buzzy, fun setting. A MICHELIN Bib Gourmand winner.", nonVeg: ["Crab Kari", "Black Pork Kari"], veg: ["Egg Hopper", "Dosa", "Paneer Kothu Roti"], maps: "https://www.google.com/maps/place/Hoppers/@51.5143387,-0.1311,17z", insta: "https://www.instagram.com/hopperslondon/", lat: 51.5143387, lng: -0.1311, tags: ["MICHELIN Bib", "Spicy"], image: "https://media.cntraveller.com/photos/611be94454b7352856142c47/16:9/w_2560%2Cc_limit/hoppers-soho-london-conde-nast-traveller-24nov15-pr.jpg" },
+            { id: 1, name: "Jacuzzi", cuisine: "Italian", cost: "£££ (£60 - £100)", rating: "4.8", whyGo: "Stunning, over-the-top restaurant with an incredible Italian villa-style decor. The vibe is fun and perfect for a special night out.", nonVeg: ["Lobster and Seafood Risotto", "Gran Cotoletta alla Milanese"], veg: ["Truffle Burrata", "Chocolate Mousse"], maps: "https://www.google.com/maps/place/Jacuzzi/@51.510355,-0.139,17z", insta: "https://www.instagram.com/bigmammagroup/", lat: 51.510355, lng: -0.1390, tags: ["Vibrant", "Date Night"], image: "https://axwwgrkdco.cloudimg.io/v7/__gmpics__/2d2362b53434458397902a2432215381" },
+            { id: 2, name: "MiMi Mei Fair", cuisine: "Chinese", cost: "££££ (> £100)", rating: "4.9", whyGo: "A beautiful, upscale restaurant with a 1920s Shanghai vibe. Perfect for a fancy dinner or date night.", nonVeg: ["Apple-wood Peking Duck", "Wasabi Prawns"], veg: ["Steamed XO Okra", "Salted Egg Tofu"], maps: "https://www.google.com/maps/place/MiMi+Mei+Fair/@51.5049237,-0.1491,17z", insta: "https://www.instagram.com/mimimeifair/", lat: 51.5049237, lng: -0.1491, tags: ["Fine Dining", "Special Occasion"], image: "https://axwwgrkdco.cloudimg.io/v7/__gmpics__/a38612a21b334431a3a41a4957e1a615" },
+            { id: 3, name: "Hoppers", cuisine: "Sri Lankan", cost: "££ (£30 - £50)", rating: "4.7", whyGo: "Authentic Sri Lankan and South Indian street food in a buzzy, fun setting. A MICHELIN Bib Gourmand winner.", nonVeg: ["Crab Kari", "Black Pork Kari"], veg: ["Egg Hopper", "Dosa", "Paneer Kothu Roti"], maps: "https://www.google.com/maps/place/Hoppers/@51.5143387,-0.1311,17z", insta: "https://www.instagram.com/hopperslondon/", lat: 51.5143387, lng: -0.1311, tags: ["MICHELIN Bib", "Spicy"], image: "https://axwwgrkdco.cloudimg.io/v7/__gmpics__/2b855b59191444599eb6612a023f02e5" },
             { id: 4, name: "Eataly", cuisine: "Italian Grocery Store", cost: "££ (£25 - £45)", rating: "4.5", whyGo: "A huge Italian food hall with restaurants, bars, and a market. A great place to explore and try different snacks.", nonVeg: ["Tagliatelle alla Bolognese", "Pizza Salsiccia e Friarielli"], veg: ["Pizza Margherita", "Spaghetto Eataly"], maps: "https://www.google.com/maps/place/Eataly+London/@51.5192313,-0.0811,17z", insta: "https://www.instagram.com/eatalylondon/", lat: 51.5192313, lng: -0.0811, tags: ["Market", "Casual"], image: "https://media.cntraveller.com/photos/611be9431a42533625b2938d/16:9/w_2560%2Cc_limit/eataly-london-conde-nast-traveller-24nov15-pr.jpg" },
-            { id: 5, name: "Dishoom", cuisine: "Indian", cost: "££ (£30 - £50)", rating: "4.6", whyGo: "A London favorite, styled after the old Irani cafés of Bombay. The atmosphere is always buzzing and the food is consistently delicious.", nonVeg: ["Bacon Naan Roll", "Chicken Ruby"], veg: ["Black Daal", "Okra Fries"], maps: "https://www.google.com/maps/place/Dishoom+Covent+Garden/@51.5124113,-0.1232,17z", insta: "https://www.instagram.com/dishoom/", lat: 51.5124113, lng: -0.1232, tags: ["Popular", "All-day Dining"], image: "https://media.cntraveller.com/photos/611be9429416543b5078693c/16:9/w_2560%2Cc_limit/dishoom-shoreditch-london-conde-nast-traveller-24nov15-pr.jpg" },
+            { id: 5, name: "Dishoom", cuisine: "Indian", cost: "££ (£30 - £50)", rating: "4.6", whyGo: "A London favorite, styled after the old Irani cafés of Bombay. The atmosphere is always buzzing and the food is consistently delicious.", nonVeg: ["Bacon Naan Roll", "Chicken Ruby"], veg: ["Black Daal", "Okra Fries"], maps: "https://www.google.com/maps/place/Dishoom+Covent+Garden/@51.5124113,-0.1232,17z", insta: "https://www.instagram.com/dishoom/", lat: 51.5124113, lng: -0.1232, tags: ["Popular", "All-day Dining"], image: "https://axwwgrkdco.cloudimg.io/v7/__gmpics__/38e4c6928e4e4250b3b3a62d1c67425f" },
             { id: 6, name: "Lina Stores", cuisine: "Italian", cost: "££ (£35 - £55)", rating: "4.7", whyGo: "An iconic London deli and restaurant, famous for its fresh, handmade pasta. A true taste of Italy in the heart of London.", nonVeg: ["Spaghetti with Crab", "Veal Ravioli"], veg: ["Pici with Datterino Tomatoes", "Agnolotti Verdi"], maps: "https://www.google.com/maps/place/Lina+Stores+Soho+-+Italian+Restaurant/@51.513725,-0.1306,17z", insta: "https://www.instagram.com/linastores/", lat: 51.513725, lng: -0.1306, tags: ["Pasta", "Classic"], image: "https://media.cntraveller.com/photos/611be945a8635e744432230a/16:9/w_2560%2Cc_limit/lina-stores-soho-london-conde-nast-traveller-24nov15-pr.jpg" },
-            { id: 7, name: "Bubala", cuisine: "Vegan Lebanese", cost: "££ (£35 - £50)", rating: "4.8", whyGo: "A trendy, MICHELIN Bib Gourmand-winning vegetarian restaurant with incredible Middle Eastern small plates.", nonVeg: [], veg: ["Halloumi with Black Seed Honey", "Fried Aubergine"], maps: "https://www.google.com/maps/place/Bubala+Soho/@51.5147814,-0.1313,17z", insta: "https://www.instagram.com/bubala_london/", lat: 51.5147814, lng: -0.1313, tags: ["MICHELIN Bib", "Vegetarian"], image: "https://media.cntraveller.com/photos/611be9411a42533625b29387/16:9/w_2560%2Cc_limit/bubala-london-conde-nast-traveller-24nov15-pr.jpg" },
-            { id: 8, name: "Som Saa", cuisine: "Thai", cost: "£££ (£50 - £70)", rating: "4.6", whyGo: "Serves authentic, regional Thai food in a cool, converted warehouse. They have a fantastic dedicated vegan menu.", nonVeg: ["Whole Fried Sea Bass", "Braised Beef Curry"], veg: ["Vegan Tasting Menu", "Mango Sticky Rice"], maps: "https://www.google.com/maps/place/som+saa/@51.5173364,-0.0638,17z", insta: "https://www.instagram.com/somsaalondon/", lat: 51.5173364, lng: -0.0638, tags: ["Authentic", "Warehouse"], image: "https://media.cntraveller.com/photos/611be9481a42533625b29393/16:9/w_2560%2Cc_limit/som-saa-london-conde-nast-traveller-24nov15-pr.jpg" },
-            { id: 9, name: "Honey & Co", cuisine: "Middle Eastern", cost: "£££ (£50 - £80)", rating: "4.7", whyGo: "A beautiful restaurant with vibrant, colorful Middle Eastern dishes perfect for sharing. A MICHELIN-recommended spot.", nonVeg: ["Slow-cooked Lamb", "Sea Bream Tagine"], veg: ["Labneh with Roast Butternut Squash", "Feta Cheesecake"], maps: "https://www.google.com/maps/place/Honey+%26+Co.+Bloomsbury/@51.520268,-0.1267,17z", insta: "https://www.instagram.com/honeyandco/", lat: 51.520268, lng: -0.1267, tags: ["Sharing Plates", "MICHELIN"], image: "https://media.cntraveller.com/photos/62c2c08a8b862085123842c5/16:9/w_2560%2Cc_limit/Honey%20%26%20Co%20Bloomsbury-July22-pr-2.jpg" },
-            { id: 10, name: "Alley Cats Pizza", cuisine: "Pizza", cost: "£ (£20 - £30)", rating: "4.5", whyGo: "A slice of New York in London. They serve huge 14-inch crispy pizzas in a cool, atmospheric spot.", nonVeg: ["Pepperoni Pizza", "Meatballs starter"], veg: ["Vodka Pizza", "Wild Mushroom Pizza"], maps: "https://www.google.com/maps/place/Alley+Cats+Pizza/@51.5198089,-0.1476,17z", insta: "https://www.instagram.com/alleycatspizzalondon/", lat: 51.5198089, lng: -0.1476, tags: ["Pizza", "Casual"], image: "https://media.timeout.com/images/106037145/750/422/image.jpg" },
-            { id: 11, name: "Afternoon Tea at Petersham Nurseries", cuisine: "Afternoon Tea", cost: "£££ (£55+)", rating: "4.9", whyGo: "A unique and beautiful afternoon tea experience in a stunning greenhouse. MICHELIN Green Star for sustainability.", nonVeg: ["Traditional afternoon tea"], veg: ["Vegan afternoon tea"], maps: "https://www.google.com/maps/place/Garden+Afternoon+Tea,+Petersham+Nurseries+Richmond/@51.4468239,-0.3067,17z", insta: "https://www.instagram.com/petershamnurseries/", lat: 51.4468239, lng: -0.3067, tags: ["MICHELIN Green Star", "Experience"], image: "https://media.cntraveller.com/photos/611be94454b7352856142c49/16:9/w_2560%2Cc_limit/petersham-nurseries-afternoon-tea-conde-nast-traveller-24nov15-pr.jpg" },
+            { id: 7, name: "Bubala", cuisine: "Vegan Lebanese", cost: "££ (£35 - £50)", rating: "4.8", whyGo: "A trendy, MICHELIN Bib Gourmand-winning vegetarian restaurant with incredible Middle Eastern small plates.", nonVeg: [], veg: ["Halloumi with Black Seed Honey", "Fried Aubergine"], maps: "https://www.google.com/maps/place/Bubala+Soho/@51.5147814,-0.1313,17z", insta: "https://www.instagram.com/bubala_london/", lat: 51.5147814, lng: -0.1313, tags: ["MICHELIN Bib", "Vegetarian"], image: "https://axwwgrkdco.cloudimg.io/v7/__gmpics__/15a454a36224483787a20c5d564f9b33" },
+            { id: 8, name: "Som Saa", cuisine: "Thai", cost: "£££ (£50 - £70)", rating: "4.6", whyGo: "Serves authentic, regional Thai food in a cool, converted warehouse. They have a fantastic dedicated vegan menu.", nonVeg: ["Whole Fried Sea Bass", "Braised Beef Curry"], veg: ["Vegan Tasting Menu", "Mango Sticky Rice"], maps: "https://www.google.com/maps/place/som+saa/@51.5173364,-0.0638,17z", insta: "https://www.instagram.com/somsaalondon/", lat: 51.5173364, lng: -0.0638, tags: ["Authentic", "Warehouse"], image: "https://axwwgrkdco.cloudimg.io/v7/__gmpics__/641a223e7f42451390971b40552b4856" },
+            { id: 9, name: "Honey & Co", cuisine: "Middle Eastern", cost: "£££ (£50 - £80)", rating: "4.7", whyGo: "A beautiful restaurant with vibrant, colorful Middle Eastern dishes perfect for sharing. A MICHELIN-recommended spot.", nonVeg: ["Slow-cooked Lamb", "Sea Bream Tagine"], veg: ["Labneh with Roast Butternut Squash", "Feta Cheesecake"], maps: "https://www.google.com/maps/place/Honey+%26+Co.+Bloomsbury/@51.520268,-0.1267,17z", insta: "https://www.instagram.com/honeyandco/", lat: 51.520268, lng: -0.1267, tags: ["Sharing Plates", "MICHELIN"], image: "https://images.squarespace-cdn.com/content/v1/5f3a6e4993880a374bc4f435/1660149320295-8164O9L29A9W9Y8J0B7W/HONEY%26CO_BLOOMSBURY_INTERIORS_HIGHRES_by_PatriciaNiven-17.jpg" },
+            { id: 10, name: "Alley Cats Pizza", cuisine: "Pizza", cost: "£ (£20 - £30)", rating: "4.5", whyGo: "A slice of New York in London. They serve huge 14-inch crispy pizzas in a cool, atmospheric spot.", nonVeg: ["Pepperoni Pizza", "Meatballs starter"], veg: ["Vodka Pizza", "Wild Mushroom Pizza"], maps: "https://www.google.com/maps/place/Alley+Cats+Pizza/@51.5198089,-0.1476,17z", insta: "https://www.instagram.com/alleycatspizzalondon/", lat: 51.5198089, lng: -0.1476, tags: ["Pizza", "Casual"], image: "https://images.squarespace-cdn.com/content/v1/64627b01e3923a5468a4115b/1684185012395-5G780YV11G0EMF40GN1A/Alley+Cats+Pizza+copy.jpg" },
+            { id: 11, name: "Afternoon Tea at Petersham Nurseries", cuisine: "Afternoon Tea", cost: "£££ (£55+)", rating: "4.9", whyGo: "A unique and beautiful afternoon tea experience in a stunning greenhouse. MICHELIN Green Star for sustainability.", nonVeg: ["Traditional afternoon tea"], veg: ["Vegan afternoon tea"], maps: "https://www.google.com/maps/place/Garden+Afternoon+Tea,+Petersham+Nurseries+Richmond/@51.4468239,-0.3067,17z", insta: "https://www.instagram.com/petershamnurseries/", lat: 51.4468239, lng: -0.3067, tags: ["MICHELIN Green Star", "Experience"], image: "https://petershamnurseries.com/wp-content/uploads/2023/10/PNR-Afternoon-Tea-1-1.jpg" },
             { id: 12, name: "The Dusty Knuckle Bakery", cuisine: "Bakery", cost: "£ (£10 - £20)", rating: "4.8", whyGo: "An artisan bakery with a social mission, known for its incredible sourdough bread and creative sandwiches.", nonVeg: ["Salt Beef Sandwich", "Porchetta Sandwich"], veg: ["Potato Sourdough", "Egg & Chilli Focaccia"], maps: "https://www.google.com/maps/place/The+Dusty+Knuckle+Bakery/@51.543161,-0.0742,17z", insta: "https://www.instagram.com/thedustyknuckle/", lat: 51.543161, lng: -0.0742, tags: ["Bakery", "Sandwiches"], image: "https://static.designmynight.com/uploads/2022/03/Dusty-Knuckle-2-optimised.jpg" },
-            { id: 13, name: "Jolene Bakery", cuisine: "Bakery & Restaurant", cost: "££ (£15 - £35)", rating: "4.7", whyGo: "A beautiful, MICHELIN-recommended neighborhood bakery and restaurant that mills its own flour.", nonVeg: ["Tagliatelle with Pork Ragu", "Seasonal Fish"], veg: ["Freshly baked bread", "Ricotta Ravioli"], maps: "https://www.google.com/maps/place/Jolene+Bakery+%26+Restaurant/@51.5567957,-0.0886,17z", insta: "https://www.instagram.com/jolene_bakery/", lat: 51.5567957, lng: -0.0886, tags: ["MICHELIN", "Bakery"], image: "https://media.cntraveller.com/photos/611be945a8635e744432230b/16:9/w_2560%2Cc_limit/jolene-london-conde-nast-traveller-24nov15-pr.jpg" },
+            { id: 13, name: "Jolene Bakery", cuisine: "Bakery & Restaurant", cost: "££ (£15 - £35)", rating: "4.7", whyGo: "A beautiful, MICHELIN-recommended neighborhood bakery and restaurant that mills its own flour.", nonVeg: ["Tagliatelle with Pork Ragu", "Seasonal Fish"], veg: ["Freshly baked bread", "Ricotta Ravioli"], maps: "https://www.google.com/maps/place/Jolene+Bakery+%26+Restaurant/@51.5567957,-0.0886,17z", insta: "https://www.instagram.com/jolene_bakery/", lat: 51.5567957, lng: -0.0886, tags: ["MICHELIN", "Bakery"], image: "https://images.squarespace-cdn.com/content/v1/5b891b54266c0773950db46d/1542194301980-60S761QX09N07T4S078E/jolene-newington-green-bakery-restaurant-london-01.jpg" },
             { id: 14, name: "Spitalfields Market", cuisine: "Street Food Market", cost: "£ (£10 - £30)", rating: "4.6", whyGo: "A lively market with a fantastic selection of street food stalls, alongside independent shops and restaurants.", nonVeg: ["The Rib Man ribs", "Bleecker St. Burger"], veg: ["Bleecker St. Veggie Burger", "Wheelcake Island"], maps: "https://www.google.com/maps/place/Spitalfields+Market/@51.5195433,-0.0755,17z", insta: "https://www.instagram.com/spitalfieldse1/", lat: 51.5195433, lng: -0.0755, tags: ["Market", "Street Food"], image: "https://www.spitalfields.co.uk/wp-content/uploads/2022/08/Spitalfields-Market-Exterior-1-1.jpg" },
             { id: 15, name: "Borough Market", cuisine: "Food Market", cost: "£ (£10 - £30)", rating: "4.7", whyGo: "London's most famous food market. A paradise for food lovers with a huge variety of artisan foods and delicious street food.", nonVeg: ["Chorizo Roll from Brindisa", "Scallops"], veg: ["Cheese toastie from Kappacasein", "Doughnuts"], maps: "https://www.google.com/maps/place/Borough+Market/@51.5055057,-0.0906,17z", insta: "https://www.instagram.com/boroughmarket/", lat: 51.5055057, lng: -0.0906, tags: ["Market", "Iconic"], image: "https://boroughmarket.org.uk/wp-content/uploads/2023/04/Borough-Market-from-above-2023-1-scaled.jpg" },
             { id: 16, name: "Mercato Mayfair", cuisine: "Food Hall", cost: "££ (£15 - £35)", rating: "4.6", whyGo: "A stunning food market set inside a restored church. It has a great atmosphere with food stalls over four floors.", nonVeg: ["German Doner Kebab", "Rico Coco chicken"], veg: ["Fresh pasta", "Neapolitan pizza"], maps: "https://www.google.com/maps/place/Mercato+Mayfair/@51.5123985,-0.1483,17z", insta: "https://www.instagram.com/mercatometropolitano/", lat: 51.5123985, lng: -0.1483, tags: ["Food Hall", "Unique Setting"], image: "https://mercatometropolitano.com/wp-content/uploads/2022/04/MMAYFAIR-2022-by-Nic-Crilly-Hargrave-11-scaled.jpg" }
@@ -310,47 +310,27 @@
         }
         
         async function fetchRestaurantDetails(name) {
-            let apiKey = getApiKey();
-            if (!apiKey) {
-                apiKey = prompt("Please enter your Google AI API key to add new spots. You can get a free key from Google AI Studio.");
-                if (apiKey) {
-                    saveApiKey(apiKey);
-                } else {
-                    elements.errorMessage.textContent = "An API key is required to add new spots.";
-                    return null;
-                }
-            }
-
-            const prompt = `Generate details for the London restaurant '${name}'. Provide only a valid JSON object with these exact keys: name, cuisine, cost, rating, whyGo, nonVeg (array), veg (array), maps (URL), insta (URL), lat (number), lng (number), tags (array), and image (a valid, public image URL). If a detail isn't found, use an empty string or array.`;
-            
-            const payload = {
-                contents: [{ role: "user", parts: [{ text: prompt }] }],
-                generationConfig: {
-                    responseMimeType: "application/json",
-                    responseSchema: {
-                        type: "OBJECT",
-                        properties: {
-                            "name": { "type": "STRING" }, "cuisine": { "type": "STRING" }, "cost": { "type": "STRING" },
-                            "rating": { "type": "STRING" }, "whyGo": { "type": "STRING" }, "nonVeg": { "type": "ARRAY", "items": { "type": "STRING" } },
-                            "veg": { "type": "ARRAY", "items": { "type": "STRING" } }, "maps": { "type": "STRING" }, "insta": { "type": "STRING" },
-                            "lat": { "type": "NUMBER" }, "lng": { "type": "NUMBER" }, "tags": { "type": "ARRAY", "items": { "type": "STRING" } }, "image": { "type": "STRING" }
-                        }
-                    }
-                }
-            };
-
+            const apiUrl = '/.netlify/functions/getDetails'; // Use the serverless function URL
             try {
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-                const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-                if (!response.ok) throw new Error(`API error! Status: ${response.status}`);
+                const response = await fetch(apiUrl, { 
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: name })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API error! Status: ${response.status}`);
+                }
+
                 const result = await response.json();
                 const content = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                
                 if (content) {
                     const parsed = JSON.parse(content);
                     parsed.id = Date.now(); // Add a unique ID
                     return parsed;
                 } else {
-                    throw new Error("Could not retrieve details.");
+                    throw new Error("Could not retrieve details from the server.");
                 }
             } catch (error) {
                 console.error("Error fetching restaurant details:", error);
@@ -490,23 +470,6 @@
             }
         }
 
-        function getApiKey() {
-            return localStorage.getItem('googleApiKey');
-        }
-
-        function saveApiKey(key) {
-            localStorage.setItem('googleApiKey', key);
-        }
-
-        function handleApiKey() {
-            const currentKey = getApiKey() || '';
-            const newKey = prompt("Please enter your Google AI API key. This is saved in your browser's local storage.\n\nGet a free key at ai.google.dev", currentKey);
-            if (newKey !== null) { // User didn't press cancel
-                saveApiKey(newKey);
-                alert('API Key saved!');
-            }
-        }
-
         window.onload = () => {
             // Bind UI elements
             elements.listView = document.getElementById('list-view');
@@ -530,7 +493,6 @@
             elements.moonIcon = document.getElementById('moon-icon');
             elements.addSpotToggle = document.getElementById('add-spot-toggle');
             elements.addSpotSection = document.getElementById('add-spot-section');
-            elements.apiKeyBtn = document.getElementById('api-key-btn');
 
             const savedRestaurants = JSON.parse(localStorage.getItem('userRestaurants')) || [];
             favoriteIds = JSON.parse(localStorage.getItem('favoriteRestaurants')) || [];
